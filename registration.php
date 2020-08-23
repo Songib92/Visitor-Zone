@@ -26,6 +26,12 @@
 		 	$email 	= $_POST['email'];
 		 	$pass 	= $_POST['pass'];
 
+		 	//Password Hash
+
+		 	$pass_hash = password_hash($pass, PASSWORD_DEFAULT);
+
+		 	
+
 		 	/**
 		 	 * Form Validation
 		 	 */
@@ -38,7 +44,21 @@
 		 	}elseif(dataCheck($connection, 'visitors', 'uname', $uname ) ==false){
 		 		$message = validation('User name already exists !!', 'warning');
 		 	}else {
-		 		
+
+		 		//Photo Upload System
+		 		$photo 	= fileUpload($_FILES['photo'], 'photo/');
+
+		 		$file_name = $photo['file_name'];
+		 		$photo['message'];
+
+		 		if ( !empty( $photo['message'] ) ) {
+		 			$message = $photo['message'];
+		 		}else {
+		 			$sql = "INSERT INTO visitors (name, uname, email, pass, photo) VALUES ('$name', '$uname', '$email', '$pass_hash', '$file_name')";
+		 			$connection -> query($sql);
+
+		 			$message = validation('User Registration Successful', 'success');
+		 		}
 		 	}
 		 }
 		 	
