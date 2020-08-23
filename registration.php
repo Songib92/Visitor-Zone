@@ -1,3 +1,6 @@
+<?php
+	require_once "app/autoload.php";
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +12,40 @@
 	<link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body>
+
+
+		<?php
+		/**
+		 * Visitors Registration form setup
+		 */
+		if ( isset( $_POST['reg'] ) ) {
+
+			//Get Value
+		 	$name 	= $_POST['name'];
+		 	$uname 	= $_POST['uname'];
+		 	$email 	= $_POST['email'];
+		 	$pass 	= $_POST['pass'];
+
+		 	/**
+		 	 * Form Validation
+		 	 */
+		 	if ( empty($name) || empty($uname) || empty($email) || empty($pass)) {
+		 		$message = validation('All fields are required !!', 'danger');
+		 	}elseif(filter_var( $email, FILTER_VALIDATE_EMAIL ) == false){
+		 		$message = validation('Invalid email address !!', 'warning');
+		 	}elseif(dataCheck($connection, 'visitors', 'email', $email) == false){
+		 		$message = validation('Email already exists !!', 'warning');
+		 	}elseif(dataCheck($connection, 'visitors', 'uname', $uname ) ==false){
+		 		$message = validation('User name already exists !!', 'warning');
+		 	}else {
+		 		
+		 	}
+		 }
+		 	
+		 	
+		 
+
+		 ?>
 	
 	
 
@@ -16,29 +53,35 @@
 		<div class="card shadow-sm">
 			<div class="card-body">
 				<h2>Create an Account</h2>
-				<form action="">
+				<?php 
+				 if (isset($message)) {
+				 	echo $message;
+				 }
+				 ?>
+
+				<form action="" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="">Name</label>
-						<input class="form-control" type="text">
+						<input name="name" class="form-control" type="text">
 					</div>
 					<div class="form-group">
 						<label for="">Username</label>
-						<input class="form-control" type="text">
+						<input name="uname" class="form-control" type="text">
 					</div>
 					<div class="form-group">
 						<label for="">Email</label>
-						<input class="form-control" type="text">
+						<input name="email" class="form-control" type="text">
 					</div>
 					<div class="form-group">
 						<label for="">Password</label>
-						<input class="form-control" type="password">
+						<input name="pass" class="form-control" type="password">
 					</div>
 					<div class="form-group">
 						<label for="">Photo</label>
-						<input class="form-control" type="file">
+						<input name="photo" class="form-control" type="file">
 					</div>
 					<div class="form-group">
-						<input class="btn btn-primary" type="submit" value="Sign Up">
+						<input name="reg" class="btn btn-primary" type="submit" value="Sign Up">
 					</div>
 				</form>
 			</div>
