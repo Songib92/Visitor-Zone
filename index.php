@@ -37,6 +37,14 @@
 					// Password Check
 					if (password_verify($pass, $login_user_data['pass'])) {
 
+						//Session Data Management
+						session_start();
+						$_SESSION['id'] = $login_user_data['id']; 
+						$_SESSION['name'] = $login_user_data['name']; 
+						$_SESSION['uname'] = $login_user_data['uname']; 
+						$_SESSION['email'] = $login_user_data['email']; 
+						$_SESSION['photo'] = $login_user_data['photo']; 
+
 						// Gone to Profile page
 						header('location:profile.php');
 						

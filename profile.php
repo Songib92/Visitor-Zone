@@ -1,8 +1,10 @@
+<?php require_once "app/autoload.php"; ?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Login Area</title>
+	<title><?php echo $_SESSION['name']; ?></title>
 	<!-- ALL CSS FILES  -->
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/style.css">
@@ -10,39 +12,42 @@
 </head>
 <body>
 	
-	
+	<?php 
+	/**
+	 * Logout System
+	 */
+	if ( isset($_GET['logout']) AND $_GET['logout'] == 'ok') {
+		
+		session_destroy();
+		header('location:index.php');
+	}
+
+	 ?>
 
 	<div class="wrap ">
 		<a class="btn btn-sm btn-primary" href="data.php">All Users</a>
 		<div class="card shadow-sm">
 			<div class="card-body">
-				<img class="shadow-sm" style=" width:200px; height: 200px; border-radius: 50%; border:10px solid #fff; margin: auto; display: block;" src="assets/media/img/pp_photo/american-passport-photo.jpg" alt="">
-				<h2>Borsha Sarker</h2>
+				<img class="shadow-sm" style=" width:200px; height: 200px; border-radius: 50%; border:10px solid #fff; margin: auto; display: block;" src="photo/<?php echo $_SESSION['photo']; ?>" alt="">
+				<h2><?php echo $_SESSION['name']; ?></h2>
 				<hr>
 				<table class="table table-stiped">
 					<tr>
 						<td>Name :</td>
-						<td>Borsha Sarker</td>
+						<td><?php echo $_SESSION['name']; ?></td>
 					</tr>
 					<tr>
-						<td>Name :</td>
-						<td>Borsha Sarker</td>
+						<td>Username :</td>
+						<td><?php echo $_SESSION['uname']; ?></td>
 					</tr>
 					<tr>
-						<td>Name :</td>
-						<td>Borsha Sarker</td>
+						<td>Email :</td>
+						<td><?php echo $_SESSION['email']; ?></td>
 					</tr>
-					<tr>
-						<td>Name :</td>
-						<td>Borsha Sarker</td>
-					</tr>
-					<tr>
-						<td>Name :</td>
-						<td>Borsha Sarker</td>
-					</tr>
+					
 				</table>
 				<div class="card-footer">
-				<a href="">Logout</a>
+				<a href="?logout=ok">Logout</a>
 			</div>
 			</div> 
 			
