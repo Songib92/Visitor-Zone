@@ -69,7 +69,7 @@
 	/**
 	 * Massage Validation Fix
 	 */
-	function validation($massage, $type){
+	function validation($massage, $type = 'danger'){
 
 		return '<p class=\'alert alert-'. $type .'\'>'. $massage .'<button class=\'close\' data-dismiss=\'alert\'>&times;</button></p>';
 
